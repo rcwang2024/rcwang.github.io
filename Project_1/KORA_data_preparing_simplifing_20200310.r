@@ -1,6 +1,11 @@
 ###########################
 # KORA data pre-processing
 ###########################
+
+##+++++++++++++++++++
+# Note: The directories and file names were modified due to confidential reason
+##+++++++++++++++++++
+
 setwd("/data/preparing")
 list.files()
 
@@ -13,21 +18,21 @@ require('clusterSim')
 ###+++++++++++++++++++
 # prepare the data set
 ###+++++++++++++++++++
-Phen_new <- read.csv('KORA_20190617_JA_Ruichao_20200310.csv', header = TRUE)
+Phen_new <- read.csv('filename.csv', header = TRUE)
 head(Phen_new)
 length(Phen_new$Index_JA) # 4261
 
 #------------------
 # for KORA S4
 #------------------
-S4_raw <- read.csv("KORA_S4_Biocrates_Data_RCW.csv", header = TRUE)
-length(S4_raw$zz_nr_bio_S4) # 1610
+S4_raw <- read.csv("s4_raw.csv", header = TRUE)
+length(S4_raw$zz_nr_bio_S4)
 
 Phen_S4 <- subset(Phen_new, is.na(Phen_new$zz_nr_biocrates_s4) == FALSE)
 length(Phen_S4$zz_nr_biocrates_s4) # 1607
-write.csv(Phen_S4, 'KORA_S4_20190617_JA_RCW_20200310.csv')
+write.csv(Phen_S4, 's4_phen_s4.csv')
 
-setdiff(S4_raw$zz_nr_bio_S4, Phen_S4$zz_nr_biocrates_s4)
+setdiff(S4_raw$zz_nr_bio_S4, Phen_S4$zz_nr_biocrates_s4) # find the difference between this two data frames
 # [1] 745000116 745001434 745001488 
 # this three individuals will be removed, as they did not in the latest phenotype dataset
 S4_raw <- subset(S4_raw, !(S4_raw$zz_nr_bio_S4 %in% setdiff(S4_raw$zz_nr_bio_S4, Phen_S4$zz_nr_biocrates_s4)))
@@ -279,19 +284,18 @@ new_nameOrder <- c("ID_S4", "ID_F4", "Batch_bioc_S4",
 
 S4 <- S4[, new_nameOrder]
 head(S4)
-write.csv(S4, "KORA_S4_simplified_RCW_20200310.csv")
-
+write.csv(S4, "s4_updated_raw.csv")
 
 
 #------------------
 # for KORA F4
 #------------------
-F4_raw <- read.csv("KORA_F4_Biocrates_Data_RCW.csv", header = TRUE)
+F4_raw <- read.csv("f4_raw.csv", header = TRUE)
 length(F4_raw$zz_nr_bio_F4) # 3044
 
 Phen_F4 <- subset(Phen_new, is.na(Phen_new$zz_nr_biocrates_f4) == FALSE)
 length(Phen_F4$zz_nr_biocrates_f4) # 3041
-write.csv(Phen_F4, 'KORA_F4_20190617_JA_RCW_20200310.csv')
+write.csv(Phen_F4, 'f4_phen_f4.csv')
 
 setdiff(F4_raw$zz_nr_bio_F4, Phen_F4$zz_nr_biocrates_f4)
 # [1] 563000971 563001989 563002952
@@ -304,7 +308,7 @@ Phen_F4 <- Phen_F4[order(match(Phen_F4$zz_nr_biocrates_f4, F4_raw$zz_nr_bio_F4))
 F4_raw$utmmetf <- Phen_F4$utmmetf
 F4_raw$zz_nr_biocrates_f4_new <- Phen_F4$zz_nr_biocrates_f4
 all(F4_raw$zz_nr_bio_F4, F4_raw$zz_nr_biocrates_f4_new)
-write.csv(F4_raw, 'KORA_F4_Biocrates_Data_RCW_20200310.csv')
+write.csv(F4_raw, 'f4_updated_raw.csv')
 
 
 ##+++++++++++++ simplifiy the data by select variables and rename them +++++++++++##
@@ -550,7 +554,7 @@ new_nameOrder <- c("ID_S4", "ID_F4", "Batch_bioc_F4",
 
 F4 <- F4[, new_nameOrder]
 head(F4)
-write.csv(F4, "KORA_F4_simplified_RCW_20200310.csv")
+write.csv(F4, "f4_raw_updated.csv")
 
 
 
