@@ -1,7 +1,7 @@
 ###########################
 # KORA data pre-processing
 ###########################
-setwd("D:/data_analysis/A_Thesis/Data preparing_Thesis/")
+setwd("/data/preparing")
 list.files()
 
 # load related packages
