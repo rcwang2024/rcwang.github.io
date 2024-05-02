@@ -1,0 +1,8 @@
+hhello, apple python
+this is a sentence, treated as a long string
+this is another sentence, hhh
+
+repeat_hi, world
+repeat_hi, python
+repeat_this is a sentence, treated as a long string
+repeat_this is another sentence, hhh

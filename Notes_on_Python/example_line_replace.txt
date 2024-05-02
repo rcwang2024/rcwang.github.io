@@ -1,0 +1,3 @@
+This a test file with much foo, but I want to change it to bar
+here is a foo,
+here is another foo
